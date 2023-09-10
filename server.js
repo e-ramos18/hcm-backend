@@ -16,7 +16,7 @@ connectDB();
 app.use(express.json()); // Body parser (for JSON payloads), before routes
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: "*",
     credentials: true,
   })
 );
