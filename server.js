@@ -5,6 +5,8 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
 const { connectDB } = require("./database");
+const authRoutes = require("./routes/auth");
+const timeTrackingRoutes = require("./routes/timeTracking");
 const statusCheckRoute = require("./routes/statusCheck");
 
 const app = express();
@@ -16,7 +18,7 @@ connectDB();
 app.use(express.json()); // Body parser (for JSON payloads), before routes
 app.use(
   cors({
-    origin: "*",
+    origin: process.env.CORS_ORIGIN,
     credentials: true,
   })
 );
@@ -26,5 +28,7 @@ app.use(cookieParser());
 
 // Routes
 app.use(statusCheckRoute);
+app.use("/auth", authRoutes);
+app.use("/time", timeTrackingRoutes);
 
 module.exports = app;
